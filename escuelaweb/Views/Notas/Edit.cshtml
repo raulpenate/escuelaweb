@@ -1,0 +1,60 @@
+﻿@model escuelaweb.Models.Notum
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDocente.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Notum</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdNota" />
+            <div class="form-group">
+                <label asp-for="FkIdAlumno" class="control-label"></label>
+                <input asp-for="FkIdAlumno" class="form-control" />
+                <span asp-validation-for="FkIdAlumno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkIdDocente" class="control-label"></label>
+                <input asp-for="FkIdDocente" class="form-control" />
+                <span asp-validation-for="FkIdDocente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkIdMateria" class="control-label"></label>
+                <input asp-for="FkIdMateria" class="form-control" />
+                <span asp-validation-for="FkIdMateria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkIdGrado" class="control-label"></label>
+                <input asp-for="FkIdGrado" class="form-control" />
+                <span asp-validation-for="FkIdGrado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calificacion" class="control-label"></label>
+                <input asp-for="Calificacion" class="form-control" />
+                <span asp-validation-for="Calificacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trimestre" class="control-label"></label>
+                <input asp-for="Trimestre" class="form-control" />
+                <span asp-validation-for="Trimestre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

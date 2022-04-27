@@ -1,0 +1,35 @@
+﻿@model IEnumerable<escuelaweb.Models.Grado>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDocente.cshtml";
+}
+<h1>Grado</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success mx-1"><i class="fa fa-solid fa-plus"></i> Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Grado1)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grado1)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdGrado" class="btn btn-outline-info mx-1"><i class="fa fa-solid fa-pencil"></i> Editar</a> 
+                <a asp-action="Details" asp-route-id="@item.IdGrado" class="btn btn-outline-success mx-1"><i class="fa fa-solid fa-file-pen"></i> Detalles</a> 
+                <a asp-action="Delete" asp-route-id="@item.IdGrado" class="btn btn-outline-danger mx-1"><i class="fa fa-solid fa-trash-can"></i> Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
