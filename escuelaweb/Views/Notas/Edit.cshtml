@@ -16,33 +16,38 @@
             <input type="hidden" asp-for="IdNota" />
             <div class="form-group">
                 <label asp-for="FkIdAlumno" class="control-label"></label>
-                <input asp-for="FkIdAlumno" class="form-control" />
+                <select asp-for="FkIdAlumno" class="form-control" asp-items="ViewBag.FkIdAlumno"></select>
                 <span asp-validation-for="FkIdAlumno" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FkIdDocente" class="control-label"></label>
-                <input asp-for="FkIdDocente" class="form-control" />
-                <span asp-validation-for="FkIdDocente" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="FkIdMateria" class="control-label"></label>
-                <input asp-for="FkIdMateria" class="form-control" />
+                <select asp-for="FkIdMateria" class="form-control" asp-items="ViewBag.FkIdMateria"></select>
                 <span asp-validation-for="FkIdMateria" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FkIdGrado" class="control-label"></label>
-                <input asp-for="FkIdGrado" class="form-control" />
+                <select asp-for="FkIdGrado" class="form-control" asp-items="ViewBag.FkIdGrado"></select>
                 <span asp-validation-for="FkIdGrado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Calificacion" class="control-label"></label>
-                <input asp-for="Calificacion" class="form-control" />
-                <span asp-validation-for="Calificacion" class="text-danger"></span>
+                <label asp-for="Nota1" class="control-label"></label>
+                <input asp-for="Nota1" class="form-control" />
+                <span asp-validation-for="Nota1" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trimestre" class="control-label"></label>
-                <input asp-for="Trimestre" class="form-control" />
-                <span asp-validation-for="Trimestre" class="text-danger"></span>
+                <label asp-for="Nota2" class="control-label"></label>
+                <input asp-for="Nota2" class="form-control" />
+                <span asp-validation-for="Nota2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nota3" class="control-label"></label>
+                <input asp-for="Nota3" class="form-control" />
+                <span asp-validation-for="Nota3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NotaFinal" class="control-label"></label>
+                <input asp-for="NotaFinal" class="form-control" />
+                <span asp-validation-for="NotaFinal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -55,6 +60,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

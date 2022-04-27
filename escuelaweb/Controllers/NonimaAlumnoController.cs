@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using escuelaweb.Models;
 
-namespace escuelaweb.Controllers
+namespace escuelaweb.Models
 {
     public class NonimaAlumnoController : Controller
     {
@@ -22,7 +21,8 @@ namespace escuelaweb.Controllers
         // GET: NonimaAlumno
         public async Task<IActionResult> Index()
         {
-            return View(await _context.NonimaAlumnos.ToListAsync());
+            var escuelaContext = _context.NonimaAlumnos.Include(n => n.FkIdAlumnoNavigation).Include(n => n.FkIdGradoNavigation);
+            return View(await escuelaContext.ToListAsync());
         }
 
         // GET: NonimaAlumno/Details/5
@@ -34,6 +34,8 @@ namespace escuelaweb.Controllers
             }
 
             var nonimaAlumno = await _context.NonimaAlumnos
+                .Include(n => n.FkIdAlumnoNavigation)
+                .Include(n => n.FkIdGradoNavigation)
                 .FirstOrDefaultAsync(m => m.IdNonimnaAlumno == id);
             if (nonimaAlumno == null)
             {
@@ -46,6 +48,8 @@ namespace escuelaweb.Controllers
         // GET: NonimaAlumno/Create
         public IActionResult Create()
         {
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno");
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado");
             return View();
         }
 
@@ -62,6 +66,8 @@ namespace escuelaweb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", nonimaAlumno.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", nonimaAlumno.FkIdGrado);
             return View(nonimaAlumno);
         }
 
@@ -78,6 +84,8 @@ namespace escuelaweb.Controllers
             {
                 return NotFound();
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", nonimaAlumno.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", nonimaAlumno.FkIdGrado);
             return View(nonimaAlumno);
         }
 
@@ -113,6 +121,8 @@ namespace escuelaweb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", nonimaAlumno.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", nonimaAlumno.FkIdGrado);
             return View(nonimaAlumno);
         }
 
@@ -125,6 +135,8 @@ namespace escuelaweb.Controllers
             }
 
             var nonimaAlumno = await _context.NonimaAlumnos
+                .Include(n => n.FkIdAlumnoNavigation)
+                .Include(n => n.FkIdGradoNavigation)
                 .FirstOrDefaultAsync(m => m.IdNonimnaAlumno == id);
             if (nonimaAlumno == null)
             {

@@ -16,12 +16,12 @@
             <input type="hidden" asp-for="IdNonimnaAlumno" />
             <div class="form-group">
                 <label asp-for="FkIdAlumno" class="control-label"></label>
-                <input asp-for="FkIdAlumno" class="form-control" />
+                <select asp-for="FkIdAlumno" class="form-control" asp-items="ViewBag.FkIdAlumno"></select>
                 <span asp-validation-for="FkIdAlumno" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FkIdGrado" class="control-label"></label>
-                <input asp-for="FkIdGrado" class="form-control" />
+                <select asp-for="FkIdGrado" class="form-control" asp-items="ViewBag.FkIdGrado"></select>
                 <span asp-validation-for="FkIdGrado" class="text-danger"></span>
             </div>
             <div class="form-group">

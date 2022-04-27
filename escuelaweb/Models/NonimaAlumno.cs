@@ -8,5 +8,8 @@ namespace escuelaweb.Models
         public int IdNonimnaAlumno { get; set; }
         public int? FkIdAlumno { get; set; }
         public int? FkIdGrado { get; set; }
+
+        public virtual Alumno? FkIdAlumnoNavigation { get; set; }
+        public virtual Grado? FkIdGradoNavigation { get; set; }
     }
 }

@@ -22,7 +22,8 @@ namespace escuelaweb.Controllers
         // GET: Notas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Nota.ToListAsync());
+            var escuelaContext = _context.Nota.Include(n => n.FkIdAlumnoNavigation).Include(n => n.FkIdGradoNavigation).Include(n => n.FkIdMateriaNavigation);
+            return View(await escuelaContext.ToListAsync());
         }
 
         // GET: Notas/Details/5
@@ -34,6 +35,9 @@ namespace escuelaweb.Controllers
             }
 
             var notum = await _context.Nota
+                .Include(n => n.FkIdAlumnoNavigation)
+                .Include(n => n.FkIdGradoNavigation)
+                .Include(n => n.FkIdMateriaNavigation)
                 .FirstOrDefaultAsync(m => m.IdNota == id);
             if (notum == null)
             {
@@ -46,6 +50,9 @@ namespace escuelaweb.Controllers
         // GET: Notas/Create
         public IActionResult Create()
         {
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno");
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado");
+            ViewData["FkIdMateria"] = new SelectList(_context.Materia, "IdMateria", "IdMateria");
             return View();
         }
 
@@ -54,14 +61,19 @@ namespace escuelaweb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNota,FkIdAlumno,FkIdDocente,FkIdMateria,FkIdGrado,Calificacion,Trimestre")] Notum notum)
+        public async Task<IActionResult> Create([Bind("IdNota,FkIdAlumno,FkIdMateria,FkIdGrado,Nota1,Nota2,Nota3")] Notum notum)
         {
             if (ModelState.IsValid)
             {
+                var sumaNotas = (notum.Nota1 ?? 0) + (notum.Nota2 ?? 0) + (notum.Nota3 ?? 0);
+                notum.NotaFinal = sumaNotas / 3;
                 _context.Add(notum);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", notum.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", notum.FkIdGrado);
+            ViewData["FkIdMateria"] = new SelectList(_context.Materia, "IdMateria", "IdMateria", notum.FkIdMateria);
             return View(notum);
         }
 
@@ -78,6 +90,9 @@ namespace escuelaweb.Controllers
             {
                 return NotFound();
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", notum.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", notum.FkIdGrado);
+            ViewData["FkIdMateria"] = new SelectList(_context.Materia, "IdMateria", "IdMateria", notum.FkIdMateria);
             return View(notum);
         }
 
@@ -86,7 +101,7 @@ namespace escuelaweb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNota,FkIdAlumno,FkIdDocente,FkIdMateria,FkIdGrado,Calificacion,Trimestre")] Notum notum)
+        public async Task<IActionResult> Edit(int id, [Bind("IdNota,FkIdAlumno,FkIdMateria,FkIdGrado,Nota1,Nota2,Nota3,NotaFinal")] Notum notum)
         {
             if (id != notum.IdNota)
             {
@@ -113,6 +128,9 @@ namespace escuelaweb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FkIdAlumno"] = new SelectList(_context.Alumnos, "IdAlumno", "IdAlumno", notum.FkIdAlumno);
+            ViewData["FkIdGrado"] = new SelectList(_context.Grados, "IdGrado", "IdGrado", notum.FkIdGrado);
+            ViewData["FkIdMateria"] = new SelectList(_context.Materia, "IdMateria", "IdMateria", notum.FkIdMateria);
             return View(notum);
         }
 
@@ -125,6 +143,9 @@ namespace escuelaweb.Controllers
             }
 
             var notum = await _context.Nota
+                .Include(n => n.FkIdAlumnoNavigation)
+                .Include(n => n.FkIdGradoNavigation)
+                .Include(n => n.FkIdMateriaNavigation)
                 .FirstOrDefaultAsync(m => m.IdNota == id);
             if (notum == null)
             {

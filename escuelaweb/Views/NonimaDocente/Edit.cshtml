@@ -16,7 +16,7 @@
             <input type="hidden" asp-for="IdNonimnaDocente" />
             <div class="form-group">
                 <label asp-for="FkIdDocente" class="control-label"></label>
-                <input asp-for="FkIdDocente" class="form-control" />
+                <select asp-for="FkIdDocente" class="form-control" asp-items="ViewBag.FkIdDocente"></select>
                 <span asp-validation-for="FkIdDocente" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FkIdMateria" class="control-label"></label>
-                <input asp-for="FkIdMateria" class="form-control" />
+                <select asp-for="FkIdMateria" class="form-control" asp-items="ViewBag.FkIdMateria"></select>
                 <span asp-validation-for="FkIdMateria" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,6 +40,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
